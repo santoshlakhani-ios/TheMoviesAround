@@ -13,7 +13,10 @@ struct MoviewDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, content: {
-                AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.poster_path)")) { image in
+                Text("Release Date: \(movie.release_date)")
+                    .font(.body)
+
+                AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.backdrop_path ?? "")")) { image in
                     image.resizable()
                         .scaledToFit()
                 } placeholder: {
@@ -23,7 +26,11 @@ struct MoviewDetailView: View {
                 Text(movie.title)
                     .font(.headline)
                     .bold()
+                    .padding(.bottom)
                 Text(movie.overview)
+                    .font(.body)
+                    .padding(.bottom)
+                Text("Adult: \(movie.adult ? "Yes" : "No")")
                     .font(.body)
             })
             .padding()
@@ -34,5 +41,5 @@ struct MoviewDetailView: View {
 }
 
 #Preview {
-    MoviewDetailView(movie: Movie(id: 0, title: "Testing", overview: "Testing in Preview", poster_path: ""))
+    MoviewDetailView(movie: Movie(id: 0, title: "Testing", overview: "Testing in Preview", poster_path: "", adult: true, backdrop_path: "", release_date: "2025-09-08"))
 }
